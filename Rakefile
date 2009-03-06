@@ -8,7 +8,7 @@ begin
     gem.homepage = "http://github.com/Fingertips/peiji-san"
     gem.email    = "eloy.de.enige@gmail.com"
     gem.authors  = ["Eloy Duran"]
-    gem.summary  = %Q{TODO}
+    gem.summary  = "PeijiSan is a Rails plugin which uses named scopes to create a thin pagination layer."
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
