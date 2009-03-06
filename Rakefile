@@ -8,7 +8,7 @@ begin
     gem.homepage = "http://github.com/Fingertips/peiji-san"
     gem.email    = "eloy.de.enige@gmail.com"
     gem.authors  = ["Eloy Duran"]
-    gem.summary  = "PeijiSan is a Rails plugin which uses named scopes to create a thin pagination layer."
+    gem.summary = gem.description = "PeijiSan is a Rails plugin which uses named scopes to create a thin pagination layer."
   end
   
   begin
