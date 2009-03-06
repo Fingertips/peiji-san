@@ -4,12 +4,11 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "peiji_san"
-    gem.summary = %Q{TODO}
-    gem.email = "eloy.de.enige@gmail.com"
-    gem.homepage = "http://github.com/alloy/peiji_san"
-    gem.authors = ["Eloy Duran"]
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.name     = "peiji-san"
+    gem.homepage = "http://github.com/Fingertips/peiji-san"
+    gem.email    = "eloy.de.enige@gmail.com"
+    gem.authors  = ["Eloy Duran"]
+    gem.summary  = %Q{TODO}
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
@@ -18,9 +17,9 @@ end
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = 'peiji_san'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README*')
+  rdoc.title = 'PeijiSan'
+  rdoc.options << '--line-numbers' << '--inline-source' << '--charset=utf-8'
+  rdoc.rdoc_files.include('README*', 'LICENSE')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
@@ -30,19 +29,5 @@ Rake::TestTask.new(:test) do |test|
   test.pattern = 'test/**/*_test.rb'
   test.verbose = false
 end
-
-begin
-  require 'rcov/rcovtask'
-  Rcov::RcovTask.new do |test|
-    test.libs << 'test'
-    test.pattern = 'test/**/*_test.rb'
-    test.verbose = true
-  end
-rescue LoadError
-  task :rcov do
-    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
-  end
-end
-
 
 task :default => :test
