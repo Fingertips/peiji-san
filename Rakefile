@@ -3,25 +3,23 @@ require 'rake'
 
 begin
   require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name     = "peiji-san"
-    gem.homepage = "http://github.com/Fingertips/peiji-san"
-    gem.email    = "eloy.de.enige@gmail.com"
-    gem.authors  = ["Eloy Duran"]
-    gem.summary = gem.description = "PeijiSan is a Rails plugin which uses named scopes to create a thin pagination layer."
+  Jeweler::Tasks.new do |s|
+    s.name     = "peiji-san"
+    s.homepage = "http://github.com/Fingertips/peiji-san"
+    s.email    = "eloy.de.enige@gmail.com"
+    s.authors  = ["Eloy Duran"]
+    s.summary  = s.description = "PeijiSan is a Rails plugin which uses named scopes to create a thin pagination layer."
+    s.files    = FileList['**/**'] # tmp until we've patched Jeweler to be able to easily add files to defaults
   end
-  
-  begin
-    require 'jewelry_portfolio/tasks'
-    JewelryPortfolio::Tasks.new do |p|
-      p.account = 'Fingertips'
-    end
-  rescue LoadError
-    puts "JewelryPortfolio not available. Install it with: sudo gem install Fingertips-jewelry_portfolio -s http://gems.github.com"
-  end
-  
 rescue LoadError
-  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end
+
+begin
+  require 'jewelry_portfolio/tasks'
+  JewelryPortfolio::Tasks.new do |p|
+    p.account = 'Fingertips'
+  end
+rescue LoadError
 end
 
 require 'rake/rdoctask'

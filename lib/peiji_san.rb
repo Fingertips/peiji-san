@@ -1,4 +1,4 @@
-# PeijiSan uses named scopes to create a thin pagination layer.
+# Peiji-San uses named scopes to create a thin pagination layer.
 #
 # Example:
 #
