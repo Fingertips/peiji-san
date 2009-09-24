@@ -4,7 +4,7 @@
 #
 #   class Member < ActiveRecord::Base
 #     extend PeijiSan
-#     entries_per_page 32
+#     self.entries_per_page = 32
 #   end
 #
 # Now you can start scoping your queries by `page':
