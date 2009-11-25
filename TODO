@@ -1,0 +1,2 @@
+* Merge Scope and Array methods
+* Make it possible to use this pattern: http://www.percona.com/ppc2009/PPC2009_mysql_pagination.pdf
