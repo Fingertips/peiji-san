@@ -10,7 +10,7 @@ module PeijiSan
   #   @collection = Member.active.page(2)
   #
   #   <% pages_to_link_to(@collection).each do |page %>
-  #     <%= page.is_a?(String) ? page : link_to_page(page) %>
+  #     <%= page.is_a?(String) ? page : link_to_page(page, @collection) %>
   #   <% end %>
   module ViewHelper
     # The default options for link_to_page and pages_to_link_to.
