@@ -63,7 +63,7 @@ module PeijiSan
   #
   #   class Member < ActiveRecord::Base
   #     extend PeijiSan
-  #     entries_per_page 32
+  #     self.entries_per_page = 32
   #   end
   def entries_per_page=(entries)
     @entries_per_page = entries
@@ -73,7 +73,7 @@ module PeijiSan
   #
   #   class Member < ActiveRecord::Base
   #     extend PeijiSan
-  #     entries_per_page 32
+  #     self.entries_per_page = 32
   #   end
   #   Member.entries_per_page #=> 32
   def entries_per_page
@@ -86,7 +86,7 @@ module PeijiSan
   #
   #   class Member < ActiveRecord::Base
   #     extend PeijiSan
-  #     entries_per_page 32
+  #     self.entries_per_page = 32
   #   end
   #
   # This adds <tt>{ :limit => 32, :offset => 0 }</tt> to the scope:

@@ -16,7 +16,7 @@ Controller:
 View:
 
   <% if @collection.page_count > 1 %>
-    <% pages_to_link_to(@collection).each do |page %>
+    <% pages_to_link_to(@collection).each do |page| %>
       <%= page.is_a?(String) ? page : link_to_page(page, @collection) %>
     <% end %>
   <% end %>
