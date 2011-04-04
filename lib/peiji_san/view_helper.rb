@@ -1,11 +1,15 @@
 module PeijiSan
-  # Include this module into your view helper module, for instance
-  # ApplicationController, for super paginating cow powers.
-  #
-  # Optionally define the peiji_san_options method in your helper to override
+  # Optionally defines the peiji_san_options method in your helper to override
   # the default options.
   #
+  # Include the PeijiSan::ViewHelper into one of your view helpers to acquire
+  # PeijiSan superpowers in your view.
+  #
   # Example:
+  #
+  #   class ApplicationHelper
+  #     include PeijiSan::ViewHelper
+  #   end
   #
   #   @collection = Member.active.page(2)
   #
