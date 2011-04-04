@@ -13,16 +13,12 @@
 #
 # Which will return 32 records with an offset of 32, as that's the second page.
 #
-# See PeijiSan::PageScope and PeijiSan::ViewHelper for more info.
+# See PeijiSan::PaginationMethods and PeijiSan::ViewHelper for more info.
 module PeijiSan
-  class PageScope < ActiveRecord::NamedScope::Scope
-    attr_reader :current_page
-    
-    def initialize(proxy_scope, options)
-      @current_page = (options[:page].blank? ? 1 : options[:page]).to_i
-      @entries_per_page = options[:entries_per_page]
-      super(proxy_scope, :offset => ((@current_page - 1) * @entries_per_page), :limit => @entries_per_page)
-    end
+  ENTRIES_PER_PAGE = 32
+  
+  module PaginationMethods
+    attr_accessor :current_page, :entries_per_page, :scope_without_pagination
     
     # Returns whether or not the given page is the current page.
     def current_page?(page)
@@ -53,13 +49,13 @@ module PeijiSan
     
     # Returns the row count for all the rows that would match the current
     # scope, so not only on the current page.
-    def count
-      @proxy_scope.count
+    def unpaged_count
+      scope_without_pagination.count
     end
     
     # Returns the number of pages for the current scope.
     def page_count
-      (count.to_f / @entries_per_page).ceil
+      (unpaged_count.to_f / @entries_per_page).ceil
     end
   end
   
@@ -105,20 +101,16 @@ module PeijiSan
   # second argument:
   #
   #   Member.page(2, 5) # Page 2, 5 entries
-  def page(page, entries_per_page = nil)
-    scopes[:page].call(self, page, entries_per_page)
-  end
-  
-  # Defines the page named_scope when it extends a model class.
-  #
-  #   Member.respond_to? :page # => false
-  #
-  #   class Member < ActiveRecord::Base
-  #     extend PeijiSan
-  #   end
-  #
-  #   Member.respond_to? :page # => true
-  def self.extended(klass)
-    klass.scopes[:page] = lambda { |parent_scope, *args| PageScope.new(parent_scope, :page => args[0], :entries_per_page => args[1] || klass.entries_per_page) }
+  def page(page, entries_per_page=nil)
+    page = page.blank? ? 1 : page.to_i
+    entries_per_page = entries_per_page || self.entries_per_page || ENTRIES_PER_PAGE
+    
+    entries = scoped
+    entries.extend(PeijiSan::PaginationMethods)
+    entries.current_page = page
+    entries.entries_per_page = entries_per_page
+    entries.scope_without_pagination = scoped
+    
+    entries.limit(entries_per_page).offset((page - 1) * entries_per_page)
   end
 end

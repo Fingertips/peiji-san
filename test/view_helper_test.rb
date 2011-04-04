@@ -4,15 +4,6 @@ class TestController
   def params
     @params ||= {}
   end
-  
-  def url_for(options)
-    url = "/collections"
-    url += "?page=#{options[:page]}" if options[:page]
-    url += "?pagina=#{options[:pagina]}" if options[:pagina]
-    url += "&starts_with=#{options[:starts_with]}" if options[:starts_with]
-    url += "##{options[:anchor]}" if options[:anchor]
-    url
-  end
 end
 
 module PeijiSanHelperTestHelper
@@ -30,6 +21,19 @@ module PeijiSanHelperTestHelper
         collection.stubs(:current_page?).with(1).returns(false)
         collection.stubs(:current_page?).with(2).returns(false)
         collection.stubs(:page_count).returns(125)
+      end
+      
+      def url_for(options)
+        return options if options.kind_of?(String)
+        
+        options = options.with_indifferent_access
+        
+        url = "/collections"
+        url += "?page=#{options[:page]}" if options[:page]
+        url += "?pagina=#{options[:pagina]}" if options[:pagina]
+        url += "&starts_with=#{options[:starts_with]}" if options[:starts_with]
+        url += "##{options[:anchor]}" if options[:anchor]
+        url
       end
     end
   end
