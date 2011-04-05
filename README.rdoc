@@ -1,22 +1,42 @@
 = Peiji-San
 
-Peiji-San uses named scopes to create a thin pagination layer.
+Peiji-San uses scopes to create a thin pagination layer.
 
-Model:
+We try to stay out of the way of your application as much as possible. That's
+why you need to include Peiji in the places where you actually use it.
 
   class Member < ActiveRecord::Base
     extend PeijiSan
     self.entries_per_page = 32
   end
 
-Controller:
+After that a special extended scope is defined on the model and you will be
+able to select a collection that contains only records on that page.
 
   @collection = Member.active.page(2)
 
-View:
+In the view you can either build your own links to the pages or you can use
+the helpers shipped with Peiji. Like with the model extension the view
+helpers aren't defined by default, you will need to include them in another
+helper class.
+
+  class ApplicationHelper
+    include PeijiSan::ViewHelper
+  end
+
+After that the helpers will be usable in your view.
 
   <% if @collection.page_count > 1 %>
     <% pages_to_link_to(@collection).each do |page| %>
       <%= page.is_a?(String) ? page : link_to_page(page, @collection) %>
     <% end %>
   <% end %>
+
+== Rails 2.3 and earlier
+
+The latest version of Peiji only works in Rails 3 because of extensive
+changes to the scope API. However, earlier version work just fine in
+Rails 2.3. Rails 3 support starts at version 1.0, so put the following
+in environment.rb:
+
+  config.gem "peiji-san", :lib => "peiji_san", :version => "< 1.0"
