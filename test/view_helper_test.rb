@@ -44,11 +44,11 @@ describe "PeijiSan::ViewHelper::link_to_page" do
   include PeijiSan::ViewHelper
   
   it "should return a link for a given page number" do
-    link_to_page(2, collection).should == '<a href="/collections?page=2#explore">2</a>'
+    link_to_page(2, collection).should == '<a href="/collections?page=2">2</a>'
   end
   
   it "should return a link for a given page number with the specified page parameter" do
-    link_to_page(2, collection, :page_parameter => 'pagina').should == '<a href="/collections?pagina=2#explore">2</a>'
+    link_to_page(2, collection, :page_parameter => 'pagina').should == '<a href="/collections?pagina=2">2</a>'
   end
   
   it "should return a link for a given page number with the specified anchor" do
@@ -57,7 +57,7 @@ describe "PeijiSan::ViewHelper::link_to_page" do
   
   it "should return a link for a given page number and include the original params" do
     controller.params[:starts_with] = 'h'
-    link_to_page(2, collection).should == '<a href="/collections?page=2&amp;starts_with=h#explore">2</a>'
+    link_to_page(2, collection).should == '<a href="/collections?page=2&amp;starts_with=h">2</a>'
   end
   
   it "should return a link which does not include the page GET variable if it's page number 1" do
@@ -67,12 +67,12 @@ describe "PeijiSan::ViewHelper::link_to_page" do
   
   it "should return a link with the class current if it's for the currently selected page" do
     collection.stubs(:current_page?).with(2).returns(true)
-    link_to_page(2, collection).should == '<a href="/collections?page=2#explore" class="current">2</a>'
+    link_to_page(2, collection).should == '<a href="/collections?page=2" class="current">2</a>'
   end
   
   it "should return a link with the class current if it's for the currently selected page" do
     collection.stubs(:current_page?).with(2).returns(true)
-    link_to_page(2, collection, :current_class => 'looking_at').should == '<a href="/collections?page=2#explore" class="looking_at">2</a>'
+    link_to_page(2, collection, :current_class => 'looking_at').should == '<a href="/collections?page=2" class="looking_at">2</a>'
   end
 end
 

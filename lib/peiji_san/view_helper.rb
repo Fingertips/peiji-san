@@ -21,7 +21,7 @@ module PeijiSan
     DEFAULT_PEIJI_SAN_OPTIONS = {
       # For link_to_page
       :page_parameter => :page,
-      :anchor => :explore,
+      :anchor => nil,
       :current_class => :current,
       # For pages_to_link_to
       :max_visible => 11,
