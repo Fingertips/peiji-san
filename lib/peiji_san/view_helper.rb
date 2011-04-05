@@ -5,8 +5,6 @@ module PeijiSan
   # Include the PeijiSan::ViewHelper into one of your view helpers to acquire
   # PeijiSan superpowers in your view.
   #
-  # Example:
-  #
   #   class ApplicationHelper
   #     include PeijiSan::ViewHelper
   #   end
@@ -68,8 +66,6 @@ module PeijiSan
     #   [:separator]
     #     The separator string used to indicate a range between the first or last
     #     page and the ones surrounding the current page.
-    #
-    # Example:
     #
     #   collection = Model.all.page(40)
     #   collection.page_count # => 80

@@ -1,7 +1,5 @@
 # Peiji-San uses named scopes to create a thin pagination layer.
 #
-# Example:
-#
 #   class Member < ActiveRecord::Base
 #     extend PeijiSan
 #     self.entries_per_page = 32
@@ -17,6 +15,12 @@
 module PeijiSan
   ENTRIES_PER_PAGE = 32
   
+  # The page scope is extended with the PaginationMethods. This means that all
+  # methods defined on this module will be available on the resulting
+  # collection.
+  #
+  #   collection = Member.active.page(1)
+  #   collection.has_next_page?
   module PaginationMethods
     attr_accessor :current_page, :entries_per_page, :scope_without_pagination
     
