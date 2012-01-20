@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Peiji-San uses named scopes to create a thin pagination layer.
 #
 #   class Member < ActiveRecord::Base
