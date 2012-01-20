@@ -1,17 +1,12 @@
+# -*- encoding : utf-8 -*-
+require "rubygems"
+require "bundler"
+Bundler.require(:development)
+
 module PeijiSanTest
   module Initializer
     def self.load_dependencies
       $:.unshift File.expand_path('../../lib', __FILE__)
-      
-      require 'rubygems' rescue LoadError
-      
-      require 'active_support'
-      require 'active_record'
-      require 'action_view'
-      
-      require 'test/spec'
-      require 'mocha'
-      
       require File.expand_path('../../init', __FILE__)
     end
     

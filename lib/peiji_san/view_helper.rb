@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module PeijiSan
   # Optionally defines the peiji_san_options method in your helper to override
   # the default options.

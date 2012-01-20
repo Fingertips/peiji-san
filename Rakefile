@@ -14,6 +14,9 @@ begin
 rescue LoadError
 end
 
+# jewelry_portfolio is not currently available as a gem proper
+# and has odd dependencies. Probably back from when github has been publishing gems.
+# Could not find gem 'schacon-git', required by 'jewelry_portfolio', in any of the sources
 begin
   require 'jewelry_portfolio/tasks'
   JewelryPortfolio::Tasks.new do |p|
