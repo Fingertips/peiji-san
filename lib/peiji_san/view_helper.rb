@@ -54,17 +54,16 @@ module PeijiSan
       url_options = (page == 1 ? pageable_params.except(page_parameter) : pageable_params.merge(page_parameter => page))
       url_options[:anchor] = peiji_san_option(:anchor, options)
       html_options[:class] = peiji_san_option(:current_class, options) if paginated_set.current_page?(page)
-      link_to page, peiji_url_for(url_options), html_options
-    end
-    
-    
-    def peiji_url_for(options)
-      if respond_to?(:controller) # Rails
-        url_for(options)
+      
+      # Again a little fork here
+      normalized_url_options = if respond_to?(:controller) # Rails
+        url_for(url_options)
       else # Sinatra
         root_path = env['SCRIPT_NAME'].blank? ? "/" : env["SCRIPT_NAME"]
-        url_for(root_path, options)
+        url_for(root_path, url_options)
       end
+      
+      link_to page, normalized_url_options, html_options
     end
     
     # This Rails method is overridden to provide compatibility with other frameworks. By default it will just call super
