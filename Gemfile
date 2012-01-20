@@ -10,4 +10,12 @@ group :development do
   gem "rails", "3.1", :require => %w( active_support active_record action_view )
   gem "jeweler"
   gem "rake"
+  
+  # Testing with sinatra
+  gem "sinatra", :require => "sinatra/base"
+  
+  # There needs to be a new release for this
+  gem "tobias-sinatra-url-for", :require => 'sinatra/url_for'
+  
+  gem 'rack-test'
 end

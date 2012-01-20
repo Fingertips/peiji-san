@@ -47,10 +47,41 @@ module PeijiSan
     #     collection. Defaults to <tt>:current</tt>.
     def link_to_page(page, paginated_set, options = {}, html_options = {})
       page_parameter = peiji_san_option(:page_parameter, options)
-      url_options = (page == 1 ? controller.params.except(page_parameter) : controller.params.merge(page_parameter => page))
+      
+      # Sinatra/Rails differentiator
+      pageable_params = respond_to?(:controller) ? controller.params : self.params
+      
+      url_options = (page == 1 ? pageable_params.except(page_parameter) : pageable_params.merge(page_parameter => page))
       url_options[:anchor] = peiji_san_option(:anchor, options)
       html_options[:class] = peiji_san_option(:current_class, options) if paginated_set.current_page?(page)
-      link_to page, url_for(url_options), html_options
+      link_to page, peiji_url_for(url_options), html_options
+    end
+    
+    
+    def peiji_url_for(options)
+      if respond_to?(:controller) # Rails
+        url_for(options)
+      else # Sinatra
+        root_path = env['SCRIPT_NAME'].blank? ? "/" : env["SCRIPT_NAME"]
+        url_for(root_path, options)
+      end
+    end
+    
+    # This Rails method is overridden to provide compatibility with other frameworks. By default it will just call super
+    # if super is provided. However, you will need your application to provide a standard url_for method
+    # in the context where this helper is used. For that you could use https://github.com/emk/sinatra-url-for/
+    def link_to(*arguments)
+      return super if defined?(super)
+      
+      # What follows is a very simplistic implementation of link_to
+      link_text, url, html_options = arguments[0..2]
+      html_options[:href] = url
+      attr_string = html_options.map do | attribute, value |
+        '%s="%s"' %  [Rack::Utils.escape_html(attribute), Rack::Utils.escape_html(value)] 
+      end.join(' ')
+      
+      # Compose the tag
+      return "<a %s>%s</a>" % [attr_string, Rack::Utils::escape_html(link_text)]
     end
     
     # Returns an array of pages to link to. This array includes the separator, so
