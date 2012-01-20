@@ -26,7 +26,7 @@ describe "A Sinatra app that uses Peiji-San" do
     SimplisticApp
   end
   
-  it "has it's helper module put in place" do
+  it "has it's link_to_page method put in place and operational" do
     get '/'
     last_response.status.must_equal 200
     last_response.body.must_equal '<a href="&#x2F;?page=2&amp;anchor=">2</a>'
