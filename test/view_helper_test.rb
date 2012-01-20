@@ -109,14 +109,14 @@ describe "PeijiSan::ViewHelper::pages_to_link_to" do
   it "should not show an ellips but all pages if there are only 10 pages, this is the threshold for when an ellips starts to be necessary" do
     collection.stubs(:page_count).returns(10)
     collection.stubs(:current_page).returns(5)
-    pages_to_link_to(collection).must_equal (1..10).to_a
+    pages_to_link_to(collection).must_equal((1..10).to_a)
   end
   
   it "should not return more page links if there aren't that many pages" do
     1.upto(9) do |page|
       collection.stubs(:page_count).returns(page)
       collection.stubs(:current_page).returns(page)
-      pages_to_link_to(collection).must_equal (1..page).to_a
+      pages_to_link_to(collection).must_equal((1..page).to_a)
     end
   end
   
@@ -127,7 +127,7 @@ describe "PeijiSan::ViewHelper::pages_to_link_to" do
     
     collection.stubs(:current_page).returns(3)
     pages_to_link_to(collection, :max_visible => 5).must_equal [1, 2, 3, '…', 125]
-    pages_to_link_to(collection, :max_visible => 15).must_equal (1..13).to_a + ['…', 125]
+    pages_to_link_to(collection, :max_visible => 15).must_equal( (1..13).to_a + ['…', 125] )
   end
   
   it "should return a list of page numbers with the specified separator instead of the default ellips" do
