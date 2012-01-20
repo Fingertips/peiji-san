@@ -1,17 +1,14 @@
 require 'rubygems'
-require 'rake'
+require 'bundler'
+Bundler.require(:development)
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |s|
-    s.name     = "peiji-san"
-    s.homepage = "http://github.com/Fingertips/peiji-san"
-    s.email    = "eloy.de.enige@gmail.com"
-    s.authors  = ["Eloy Duran"]
-    s.summary  = s.description = "PeijiSan is a Rails plugin which uses named scopes to create a thin pagination layer."
-    s.files    = FileList['**/**'] # tmp until we've patched Jeweler to be able to easily add files to defaults
-  end
-rescue LoadError
+Jeweler::Tasks.new do |s|
+  s.name     = "peiji-san"
+  s.homepage = "http://github.com/Fingertips/peiji-san"
+  s.email    = "eloy.de.enige@gmail.com"
+  s.authors  = ["Eloy Duran"]
+  s.summary  = s.description = "PeijiSan is a Rails plugin which uses named scopes to create a thin pagination layer."
+  s.files    = FileList['**/**'] # tmp until we've patched Jeweler to be able to easily add files to defaults
 end
 
 # jewelry_portfolio is not currently available as a gem proper
@@ -25,7 +22,7 @@ begin
 rescue LoadError
 end
 
-require 'rake/rdoctask'
+require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = 'PeijiSan'
