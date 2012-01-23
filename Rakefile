@@ -1,3 +1,9 @@
+# Fix for those annoying issues when using an older system rake
+module Rake
+  module DSL
+  end
+end
+
 require 'rubygems'
 require 'bundler'
 Bundler.require
