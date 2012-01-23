@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
 
   s.homepage = "http://github.com/Fingertips/peiji-san"
   s.summary  = "PeijiSan is a Rails plugin which uses named scopes to create a thin pagination layer."
-  s.authors  = ["Eloy Duran"]
-  s.email    = "eloy.de.enige@gmail.com"
+  s.authors  = ["Eloy Duran", "Manfred Stienstra", "Julik Tarkhanov"]
+  s.email    = ["eloy.de.enige@gmail.com", "manfred@fngtps.com", "me@julik.nl"]
 
   s.extra_rdoc_files = [
     "LICENSE",
