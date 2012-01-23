@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path('../test_helper', __FILE__)
 require 'rack/test'
+require 'rexml/document'
 
 class SimplisticApp < Sinatra::Base
   helpers Sinatra::UrlForHelper, PeijiSan::ViewHelper
@@ -26,10 +27,15 @@ describe "A Sinatra app that uses Peiji-San" do
     SimplisticApp
   end
   
+  def query_hash(link)
+    query = REXML::Document.new(link).root.attributes['href'].match(/\?(.+)$/)[1]
+    Rack::Utils.parse_query(query)
+  end
+  
   it "has it's link_to_page method put in place and operational" do
     get '/'
     last_response.status.must_equal 200
-    last_response.body.must_equal '<a href="&#x2F;?page=2">2</a>'
+    query_hash(last_response.body).must_equal 'page' => '2'
   end
 end
 

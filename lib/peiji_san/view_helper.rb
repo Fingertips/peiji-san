@@ -77,8 +77,8 @@ module PeijiSan
       link_text, url, html_options = arguments[0..2]
       html_options[:href] = url
       attr_string = html_options.map do | attribute, value |
-        '%s="%s"' %  [Rack::Utils.escape_html(attribute), Rack::Utils.escape_html(value)] 
-      end.sort.join(' ') # Sort is for Hash ordering resilience in tests
+        '%s="%s"' %  [Rack::Utils.escape_html(attribute), Rack::Utils.escape_html(value)]
+      end.join(' ')
       
       # Compose the tag
       return "<a %s>%s</a>" % [attr_string, Rack::Utils::escape_html(link_text)]
