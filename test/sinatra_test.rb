@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path('../test_helper', __FILE__)
 require 'rack/test'
+require 'sinatra/base'
+require 'sinatra/url_for'
 require 'rexml/document'
 
 class SimplisticApp < Sinatra::Base
