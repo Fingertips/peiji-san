@@ -1,5 +1,7 @@
 = Peiji-San
 
+{<img src="https://secure.travis-ci.org/Fingertips/peiji-san.png" />}[http://travis-ci.org/Fingertips/peiji-san]
+
 Peiji-San uses scopes to create a thin pagination layer.
 
 We try to stay out of the way of your application as much as possible. That's
