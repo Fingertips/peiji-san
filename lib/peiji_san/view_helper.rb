@@ -52,7 +52,8 @@ module PeijiSan
       pageable_params = respond_to?(:controller) ? controller.params : self.params
       
       url_options = (page == 1 ? pageable_params.except(page_parameter) : pageable_params.merge(page_parameter => page))
-      url_options[:anchor] = peiji_san_option(:anchor, options)
+      anchor = peiji_san_option(:anchor, options)
+      url_options[:anchor] = anchor if anchor
       html_options[:class] = peiji_san_option(:current_class, options) if paginated_set.current_page?(page)
       
       # Again a little fork here
@@ -77,7 +78,7 @@ module PeijiSan
       html_options[:href] = url
       attr_string = html_options.map do | attribute, value |
         '%s="%s"' %  [Rack::Utils.escape_html(attribute), Rack::Utils.escape_html(value)] 
-      end.join(' ')
+      end.sort.join(' ') # Sort is for Hash ordering resilience in tests
       
       # Compose the tag
       return "<a %s>%s</a>" % [attr_string, Rack::Utils::escape_html(link_text)]
