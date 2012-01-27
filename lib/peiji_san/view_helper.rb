@@ -60,7 +60,7 @@ module PeijiSan
       normalized_url_options = if respond_to?(:controller) # Rails
         url_for(url_options)
       else # Sinatra
-        root_path = env['SCRIPT_NAME'].blank? ? "/" : env["SCRIPT_NAME"]
+        root_path = env['PATH_INFO'].blank? ? "/" : env["PATH_INFO"]
         url_for(root_path, url_options)
       end
       
