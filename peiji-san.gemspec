@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 require File.expand_path("../lib/peiji_san/version", __FILE__)
 
+require 'date' # for Date.today
+
 Gem::Specification.new do |s|
   s.name     = "peiji-san"
   s.version  = PeijiSan::VERSION
