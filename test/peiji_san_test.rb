@@ -29,7 +29,11 @@ describe "The PeijiSan extended scope" do
   it "returns entries for the specified page" do
     page_1 = Member.page(1)
     page_1.length.must_equal 10
-    page_1.must_equal Member.find(:all, :offset => 0, :limit => 10)
+    if ActiveRecord::VERSION::MAJOR < 4
+      page_1.must_equal Member.find(:all, :offset => 0, :limit => 10)
+    else
+      page_1.to_a.must_equal Member.offset(0).limit(10).to_a
+    end
   end
   
   it "returns the correct count of pages" do
@@ -90,8 +94,13 @@ describe "The PeijiSan extended scope" do
     Member.all_like_krs_1.page(1).page_count.must_equal 11
     Member.all_like_krs_1.but_ending_with_9.page(2).page_count.must_equal 1
     
-    Member.all_like_krs_1.page(2).must_equal Member.find(:all, :conditions => "name LIKE 'KRS 1%'", :offset => 10, :limit => 10)
-    Member.all_like_krs_1.but_ending_with_9.page(1).must_equal Member.find(:all, :conditions => "name LIKE 'KRS 1%' AND name LIKE '%9'", :offset => 0, :limit => 10)
+    if ActiveRecord::VERSION::MAJOR < 4
+      Member.all_like_krs_1.page(2).must_equal Member.find(:all, :conditions => "name LIKE 'KRS 1%'", :offset => 10, :limit => 10)
+      Member.all_like_krs_1.but_ending_with_9.page(1).must_equal Member.find(:all, :conditions => "name LIKE 'KRS 1%' AND name LIKE '%9'", :offset => 0, :limit => 10)
+    else
+      Member.all_like_krs_1.page(2).to_a.must_equal Member.where("name LIKE 'KRS 1%'").offset(10).limit(10).to_a
+      Member.all_like_krs_1.but_ending_with_9.page(1).to_a.must_equal Member.where("name LIKE 'KRS 1%' AND name LIKE '%9'").offset(0).limit(10).to_a
+    end
   end
   
   it "should still work when chained through an association proxy" do

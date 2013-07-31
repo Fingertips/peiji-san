@@ -110,12 +110,19 @@ module PeijiSan
     page = page.blank? ? 1 : page.to_i
     entries_per_page = entries_per_page || self.entries_per_page || ENTRIES_PER_PAGE
     
-    entries = scoped
+    entries = limit(entries_per_page).offset((page - 1) * entries_per_page)
+
     entries.extend(PeijiSan::PaginationMethods)
     entries.current_page = page
     entries.entries_per_page = entries_per_page
-    entries.scope_without_pagination = scoped
-    
-    entries.limit(entries_per_page).offset((page - 1) * entries_per_page)
+    entries.scope_without_pagination = _use_scoped? ? scoped : all
+
+    entries
+  end
+  
+  private
+  
+  def _use_scoped?
+    !const_defined?(:ActiveRecord) || ActiveRecord::VERSION::MAJOR < 4
   end
 end

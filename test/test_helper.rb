@@ -9,7 +9,7 @@ module PeijiSanTest
 
       require 'minitest/autorun'
       require 'minitest/spec'
-      require 'mocha'
+      require 'mocha/setup'
 
       require 'active_support'
       require 'active_record'
@@ -58,8 +58,13 @@ class Member < ActiveRecord::Base
   extend PeijiSan
   self.entries_per_page = 10
   
-  scope :all_like_krs_1, where("name LIKE 'KRS 1%'")
-  scope :but_ending_with_9, where("name LIKE '%9'")
+  if ActiveRecord::VERSION::MAJOR < 4
+    scope :all_like_krs_1, where("name LIKE 'KRS 1%'")
+    scope :but_ending_with_9, where("name LIKE '%9'")
+  else
+    scope :all_like_krs_1, -> { where("name LIKE 'KRS 1%'") }
+    scope :but_ending_with_9, -> { where("name LIKE '%9'") }
+  end
   
   has_many :works
 end
@@ -68,5 +73,9 @@ class Work < ActiveRecord::Base
   extend PeijiSan
   self.entries_per_page = 5
   
-  scope :uploaded, where(:status => 'uploaded')
+  if ActiveRecord::VERSION::MAJOR < 4
+    scope :uploaded, where(:status => 'uploaded')
+  else
+    scope :uploaded, -> { where(:status => 'uploaded') }
+  end
 end
