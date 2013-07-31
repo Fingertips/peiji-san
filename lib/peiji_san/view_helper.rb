@@ -76,8 +76,8 @@ module PeijiSan
       # What follows is a very simplistic implementation of link_to
       link_text, url, html_options = arguments[0..2]
       html_options[:href] = url
-      attr_string = html_options.map do | attribute, value |
-        '%s="%s"' %  [Rack::Utils.escape_html(attribute), Rack::Utils.escape_html(value)]
+      attr_string = html_options.keys.sort.map do |attribute|
+        '%s="%s"' %  [Rack::Utils.escape_html(attribute), Rack::Utils.escape_html(html_options[attribute])]
       end.join(' ')
       
       # Compose the tag

@@ -68,12 +68,12 @@ describe "PeijiSan::ViewHelper::link_to_page" do
   
   it "should return a link with the class current if it's for the currently selected page" do
     collection.stubs(:current_page?).with(2).returns(true)
-    link_to_page(2, collection).must_equal '<a href="/collections?page=2" class="current">2</a>'
+    link_to_page(2, collection).must_equal '<a class="current" href="/collections?page=2">2</a>'
   end
   
   it "should return a link with the class current if it's for the currently selected page" do
     collection.stubs(:current_page?).with(2).returns(true)
-    link_to_page(2, collection, :current_class => 'looking_at').must_equal '<a href="/collections?page=2" class="looking_at">2</a>'
+    link_to_page(2, collection, :current_class => 'looking_at').must_equal '<a class="looking_at" href="/collections?page=2">2</a>'
   end
 end
 
@@ -158,7 +158,7 @@ describe "ApplicationHelper, when overriding defaults" do
   
   it "should return a link with the class current if it's for the currently selected page" do
     collection.stubs(:current_page?).with(2).returns(true)
-    link_to_page(2, collection, :current_class => 'looking_at').must_equal '<a href="/collections?pagina=2#dude_so_many_pages" class="looking_at">2</a>'
+    link_to_page(2, collection, :current_class => 'looking_at').must_equal '<a class="looking_at" href="/collections?pagina=2#dude_so_many_pages">2</a>'
   end
   
   it "should return a list of page numbers that should be included in the pagination list with the specified number of :max_visible" do
